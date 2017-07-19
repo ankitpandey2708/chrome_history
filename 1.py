@@ -1,4 +1,4 @@
-import sqlite3,os,operator
+import sqlite3,os
 from collections import OrderedDict
 import pylab as plt
 
@@ -10,8 +10,7 @@ cursor = c.cursor()
 select_statement = "SELECT urls.url, urls.visit_count FROM urls, visits WHERE urls.id = visits.url;"
 cursor.execute(select_statement)
 
-results = cursor.fetchall() #tuple
-
+results = cursor.fetchall()[::-1] #reverse
 sites_count = {} #dict
 
 for url, count in results:
@@ -23,14 +22,11 @@ for url, count in results:
         else:
                 sites_count[url] = 1
 
-sites_count_sorted = OrderedDict(sorted(list(sites_count.items()), key=operator.itemgetter(1), reverse=True))
+sites = OrderedDict(list(sites_count.items()))
 
 index = [1,3,5]
-
-count = list(sites_count_sorted.values())[:3]
-
-LABELS = list(sites_count_sorted.items())[:3]
-
+count = list(sites.values())[:3]
+LABELS = list(sites.items())[:3]
 
 plt.bar(index, count, align='center')
 plt.xticks(index, LABELS)
