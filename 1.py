@@ -2,12 +2,6 @@ import sqlite3,os,operator
 from collections import OrderedDict
 import pylab as plt
 
-def parse(url):
-        parsed_url_components = url.split('//')
-        sublevel_split = parsed_url_components[1].split('/', 1)
-        domain = sublevel_split[0].replace("www.", "")
-        return domain
-
 history_db = os.path.expanduser('~')+"\AppData\Local\Google\Chrome\\User Data\Default\History" #path to user's history database (Chrome)
 
 #db querying
@@ -21,7 +15,9 @@ results = cursor.fetchall() #tuple
 sites_count = {} #dict
 
 for url, count in results:
-        url = parse(url)
+        a=url.split('//')
+        b=a[1].split('/', 1)
+        url = b[0].replace("www.", "")
         if url in sites_count:
                 sites_count[url] += 1
         else:
