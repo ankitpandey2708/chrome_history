@@ -17,11 +17,13 @@ for url, count in results:
         a=url.split('//')
         b=a[1].split('/', 1)
         url = b[0].replace("www.", "")
+        print(a)
         if url in sites_count:
                 sites_count[url] += 1
         else:
                 sites_count[url] = 1
 
+print(sites_count)
 sites = OrderedDict(sites_count)
 index = [1,3,5]
 count = list(sites.values())[:3]
