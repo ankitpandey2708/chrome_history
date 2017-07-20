@@ -22,8 +22,7 @@ for url, count in results:
         else:
                 sites_count[url] = 1
 
-sites = OrderedDict(list(sites_count.items()))
-
+sites = OrderedDict(sites_count)
 index = [1,3,5]
 count = list(sites.values())[:3]
 LABELS = list(sites.items())[:3]
